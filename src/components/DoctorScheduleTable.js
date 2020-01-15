@@ -30,7 +30,7 @@ const DoctorScheduleTable = (props) => {
         text: 'Add Appointment',
         formatter: (rowContent, row) => {
             return (    
-            <button type="button" className="btn btn-success"> + </button>
+            <button type="button" className="btn btn-success" > + </button>
             )}
       }
     ];
