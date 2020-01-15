@@ -23,7 +23,7 @@ class ScheduleMedicalAppoinment extends Component {
     }
 
     fetchPatientByIdentity = (Identity) =>{
-        axios.get(`http://localhost:3000/patients?identity=${Identity}`)
+        axios.get(`https://my-json-server.typicode.com/jazubemo/jazubemo-scheduleMedicalAppoinments/patients?identity=${Identity}`)
             .then(resp => {
                 console.log(resp.data[0])
                 this.setState({
@@ -36,7 +36,7 @@ class ScheduleMedicalAppoinment extends Component {
     }
 
     fetchDoctorSchedulePerHour = (Identity) =>{
-        axios.get(`http://localhost:3000/doctorSchedulePerHour?_expand=doctor`)
+        axios.get(`https://my-json-server.typicode.com/jazubemo/jazubemo-scheduleMedicalAppoinments/doctorSchedulePerHour?_expand=doctor`)
             .then( async resp => {
                 console.log(resp.data)
                 this.setSpecialityAndLastnameAttributes(resp.data)   
