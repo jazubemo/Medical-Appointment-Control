@@ -1,0 +1,84 @@
+{
+    "patients":[
+        {
+            "identity": "1601199400471",
+            "name": "Jasmin",
+            "lastname": "Benitez",
+            "age": 25
+        },
+        {
+            "identity": "1601199400472",
+            "name": "Ana",
+            "lastname": "Ramos",
+            "age": 26
+        }
+
+    ],
+    "doctors":[
+        {
+            "id": "1601199400481",
+            "name": "Luis",
+            "lastname": "Lopez",
+            "speciality": "cardiology",
+            "available" : true
+        },
+        {
+            "id": "1601199400482",
+            "name": "Mateo",
+            "lastname": "Salazar",
+            "speciality": "allergy",
+            "available" : true
+        }
+    ],
+    "medicalAppoinments":[
+        {
+            "id": "1",
+            "doctorId": "1601199400481",
+            "patientId": "1601199400472",
+            "Date": "20/01/2020",
+            "appoointmentTime": "13:00",
+            "duration": 1
+        },
+        {
+            "id": "1",
+            "doctorId": "1601199400482",
+            "patientId": "1601199400471",
+            "Date": "21/01/2020",
+            "appoointmentTime": "14:00",
+            "duration": 1
+        }
+    ],
+    "doctorSchedulePerHour":[
+        {
+            "doctorId": "1601199400481",
+            "shiftStart": "13:00",
+            "shiftEnd": "14:00"
+        },
+        {
+            "doctorId": "1601199400481",
+            "shiftStart": "14:00",
+            "shiftEnd": "15:00"
+        },
+        {
+            "doctorId": "1601199400481",
+            "shiftStart": "15:00",
+            "shiftEnd": "16:00"
+        },
+        {
+            "doctorId": "1601199400482",
+            "shiftStart": "13:00",
+            "shiftEnd": "14:00"
+        },
+        {
+            "doctorId": "1601199400482",
+            "shiftStart": "14:00",
+            "shiftEnd": "15:00"
+        },
+        {
+            "doctorId": "1601199400482",
+            "shiftStart": "15:00",
+            "shiftEnd": "16:00"
+        }
+    ]
+
+}

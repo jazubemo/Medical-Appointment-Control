@@ -1,0 +1,16 @@
+
+.btn-search {
+	  background-color:#424242 !important;
+	  border-radius: 0;
+	  color: #fff !important;
+	  border-width: 1px;
+	  border-style: solid;
+	  border-color: #1c1c1c;
+	}
+	.btn-search:link, .btn-search:visited {
+	  color: #fff;
+	}
+	.btn-search:active, .btn-search:hover {
+    background: #1c1c1c !important;
+	  color: #fff !important;
+	}
