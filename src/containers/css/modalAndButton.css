@@ -1,0 +1,6 @@
+button:disabled,
+button[disabled]{
+  text-decoration: none !important;
+  box-shadow: none !important;
+  cursor: not-allowed !important;
+}

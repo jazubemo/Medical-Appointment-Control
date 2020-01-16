@@ -5,17 +5,17 @@ const SearchButtonPerPatient = (props) => {
   const { patientId, 
     handleSubmitPatientId, 
     onChangeInputPatientId,
-    handlePressEnterPatientId  } = props
+    handleOnKeyPressEnterPatientId } = props
   return (
     <div className="container mt-2">
-      <label>Enter patient identity:</label>
+      <label>Enter patient's ID:</label>
       <div className="input-group mx-auto ">
         <input type="text" 
           className="form-control" 
           placeholder="Search for..." 
           onChange = {onChangeInputPatientId}
-          value = {patientId}
-          onKeyPress = {handlePressEnterPatientId} />
+          value = {patientId || ''}
+          onKeyPress = {handleOnKeyPressEnterPatientId} />
             <span className="input-group-btn">
               <button className="btn btn-search" type="button" onClick={handleSubmitPatientId} > Search</button>
             </span>
