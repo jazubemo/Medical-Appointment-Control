@@ -1,7 +1,6 @@
 import React from "react";
 
-
-const InformationOfThePatiente = (props) => {
+const InformationOfThePatient = (props) => {
   const { info, show  } = props
   return (
     <div >
@@ -29,4 +28,4 @@ const InformationOfThePatiente = (props) => {
   );
 }
 
-export default InformationOfThePatiente;
+export default InformationOfThePatient;

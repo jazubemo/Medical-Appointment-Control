@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const getPatientByIdService = ( Identity ) => 
-    axios.get(`https://my-json-server.typicode.com/jazubemo/jazubemo-scheduleMedicalAppoinments/patients?identity=${Identity}`)
+const getPatientByIdService = ( patientID ) => 
+    axios.get(`http://localhost:3000/patients?patientID=${patientID}`)
     .then(resp => {
         console.log('resp.data'+resp.data)
         console.log('resp'+resp)

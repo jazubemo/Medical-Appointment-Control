@@ -1,19 +1,15 @@
 import React, { Component } from 'react'
 import { NotificationContainer, NotificationManager} from 'react-notifications';
 import SearchButtonPerPatient  from "../components/searchButtonPerPatient"
-import InformationOfThePatiente from "../components/InformationOfThePatiente"
-import SearchFiltersForDoctors from "../components/SearchFiltersForDoctors"
-import SearchButton from "../components/SearchButton"
-import DoctorSchedule from "../components/DoctorScheduleTable"
+import InformationOfThePatient from "../components/InformationOfThePatient"
+import DoctorScheduleTable from "../components/DoctorScheduleTable"
 import getPatientByIdService from "../services/getPatientByIdService"
 import getDoctorSchedulePerHourService from "../services/getDoctorSchedulePerHourService"
 import 'react-notifications/lib/notifications.css';
 
-
-
 class ScheduleMedicalAppoinment extends Component {
     state = {
-        patientIdentity: '',
+        patientID: '',
         infoPatient: '',
         showInformation : false,
         searchFilterEntry: '',
@@ -22,15 +18,15 @@ class ScheduleMedicalAppoinment extends Component {
         doctorSchedulePerHour : []
     }
     
-    fetchInfoPatientAndDoctorSchedulePerHour = async (Identity) =>{
+    fetchInfoPatientAndDoctorSchedulePerHour = async (patientID) =>{
         try{
-            const infoPatient = await getPatientByIdService(Identity)
+            const infoPatient = await getPatientByIdService(patientID)
             if(typeof infoPatient === "undefined"){
                 NotificationManager.info("This patient ID was not found.")
             }else{
                 const doctorSchedulePerHour = await getDoctorSchedulePerHourService()
                 if(doctorSchedulePerHour){
-                    const data = this.setSpecialityAndLastnameAttributesForDataTable(doctorSchedulePerHour)  
+                    const data = this.setAttributesForDataTable(doctorSchedulePerHour)  
                     this.setState({
                         infoPatient : infoPatient,
                         showInformation : true,
@@ -43,103 +39,57 @@ class ScheduleMedicalAppoinment extends Component {
         }
     }
 
-    setSpecialityAndLastnameAttributesForDataTable = ( data ) => {
+    setAttributesForDataTable = ( data ) => {
         data.forEach(function (element, index) {
             console.log('element', element)
             element.speciality = element.doctor.speciality;
             element.lastname = element.doctor.lastname;
-            element.index = index
+            element.index = index;
             delete element.doctor
         });
         return data  
     }
 
     handleSubmitPatientId = () => {
-        const { patientIdentity } = this.state
-        if( patientIdentity === ''){
+        const { patientID } = this.state
+        if( patientID === ''){
             NotificationManager.error("Please enter a valid patient's ID")
             this.setState({
                 showInformation: false
             })
         }else{
             this.setState({
-                patientIdentity: patientIdentity
+                patientID: patientID
             }, () => {
-                this.fetchInfoPatientAndDoctorSchedulePerHour(this.state.patientIdentity)
+                this.fetchInfoPatientAndDoctorSchedulePerHour(this.state.patientID)
             })
         }   
     }
 
-    handleSubmitSearchButton = (evt) => {
-        const { searchFilterEntry } = this.state
-        this.setState({
-            searchFilterEntry :  searchFilterEntry 
-        })
-    }
-
-    handlePressEnterSearchButton = (evt) => {
-        if ( evt.charCode===13 &&  evt.target.value){
-            console.log('evt.target.value key press filter', evt.target.value)
-            this.setState({
-                searchFilterEntry: evt.target.value
-            })
-        }else{
-            
-        }
-    }
-
     handleOnKeyPressEnterPatientId= (evt) => {
-        const {patientIdentity} = this.state
+        const {patientID} = this.state
         if ( evt.charCode === 13 ){
-            if( patientIdentity === ''){
+            if( patientID === ''){
                 NotificationManager.error("Please enter a valid patient's ID")
                 this.setState({
                     showInformation: false
                 })
             }else{
-                this.fetchInfoPatientAndDoctorSchedulePerHour(patientIdentity)   
+                this.fetchInfoPatientAndDoctorSchedulePerHour(patientID)   
             }     
         }
     }
 
-    onChangeSearchButton = (evt) => {
-        console.log('evt.target.value filter search', evt.target.value)
-        this.setState({
-            searchFilterEntry: evt.target.value
-        })
-    }
-
     onChangeInputPatientId = (evt) => {
         this.setState({
-            patientIdentity: evt.target.value
+            patientID: evt.target.value
         })
-    }
-
-    onChangeSearchSpecialityFilter = (evt) => {
-        console.log('evt.target.value ratio speciality', evt.target.value)
-        const { specialityFilter, lastnameFilter} = this.state
-        this.setState({
-            specialityFilter: !specialityFilter,
-            lastnameFilter: !lastnameFilter
-        },()=>{console.log('this.state.specialityFilter',this.state.specialityFilter)})
-    }
-
-    onChangeSearchLastnameFilter = (evt) => {
-        console.log('evt.target.value ratio lastname', evt.target.value)
-        const { lastnameFilter, specialityFilter} = this.state
-        this.setState({
-            specialityFilter: !specialityFilter,
-            lastnameFilter: !lastnameFilter
-        },()=>{console.log('this.state.specialityFilter',this.state.specialityFilter)})
     }
 
     render() {
-        const { patientIdentity, 
+        const { patientID, 
             showInformation,
             infoPatient,
-            searchFilterEntry,
-            specialityFilter,
-            lastnameFilter,
             doctorSchedulePerHour} = this.state
         return (
             <div>
@@ -147,17 +97,17 @@ class ScheduleMedicalAppoinment extends Component {
                   <h2>Schedule appointments</h2>
                 </div>
                 <div className = "container mb-4">
-                <p className="lead mb-0"> Instruction: </p>
-                <small className="text-muted">To create an appointment, first enter an ID of a registered patient.</small>
+                    <p className="lead mb-0"> Instruction: </p>
+                    <small className="text-muted">To create an appointment, first enter an ID of a registered patient.</small>
                 </div>
                 <SearchButtonPerPatient  
-                patientId = { patientIdentity } 
-                handleSubmitPatientId = { this.handleSubmitPatientId }
-                onChangeInputPatientId = { this.onChangeInputPatientId }
-                handleOnKeyPressEnterPatientId = { this.handleOnKeyPressEnterPatientId } />
-                <InformationOfThePatiente 
-                show = {showInformation}
-                info = {infoPatient}/>
+                    patientId = { patientID } 
+                    handleSubmitPatientId = { this.handleSubmitPatientId }
+                    onChangeInputPatientId = { this.onChangeInputPatientId }
+                    handleOnKeyPressEnterPatientId = { this.handleOnKeyPressEnterPatientId } />
+                <InformationOfThePatient
+                    show = {showInformation}
+                    info = {infoPatient}/>
                 <hr />
                 <NotificationContainer/>
                 { showInformation ? 
@@ -165,20 +115,15 @@ class ScheduleMedicalAppoinment extends Component {
                   <div className = "container mb-4 mt-4 text-center">
                     <h4> Doctor's Schedule</h4>
                   </div>
-                  <SearchButton 
-                    SearchButton={searchFilterEntry }
-                    handleSubmitSearchButtonSearchButton = {this.handlePressEnterSearchFilterEntry}
-                    onChangeSearchButtonSearchButton = {this.onChangeInputPatientId}
-                    handlePressEnterSearchButtonSearchButton = {this.handlePressEnterSearchFilterEntry} />
-                  <SearchFiltersForDoctors
-                    onChangeSearchSpecialityFilter={this.onChangeSearchSpecialityFilter}
-                    onChangeSearchLastnameFilter={this.onChangeSearchLastnameFilter}
-                    specialityFilter={specialityFilter}
-                    lastnameFilter={lastnameFilter} />
-                  <DoctorSchedule doctorSchedule={doctorSchedulePerHour}  />
-                  
-                  </> : null}
-                
+                    <div className = "container mb-4">
+                     <p className="lead mb-0"> Instruction: </p>
+                     <small className="text-muted">Below is the schedule of available doctors, you can add in the column "add appointment".</small>
+                    </div>
+                  <DoctorScheduleTable 
+                    doctorSchedule = {doctorSchedulePerHour}
+                    patientID = {patientID} 
+                    patientInfo={infoPatient}  />
+                  </> : null}   
             </div>
         )
     }

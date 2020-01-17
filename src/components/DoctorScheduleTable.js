@@ -1,55 +1,96 @@
-import React from "react";
+import React from 'react'
 import BootstrapTable from 'react-bootstrap-table-next';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import ModalAndButton from './../containers/ModalAndButton'
+import ModalAndButton from '../containers/ModalAndButton'
 
-const DoctorScheduleTable = (props) => {
-  const { doctorSchedule  } = props
+const DoctorSheduleTable = (props) => {
+  const { doctorSchedule, patientInfo, patientID } = props
+  const { SearchBar } = Search;
     const columns = [
-        {
+      {
         dataField: 'index',
-        text: ' '
-      }, 
+        text: '',
+        sort: true
+      },
       {
         dataField: 'speciality',
-        text: 'Speciality'
+        text: 'Speciality',
+        sort: true
       }, 
       {
         dataField: 'lastname',
-        text: 'Lastname'
+        text: 'Lastname',
+        sort: true
       }, 
       {
         dataField: 'shiftStart',
-        text: 'Shift Start'
+        text: 'Shift Start',
+        sort: true
       }, 
       {
         dataField: 'shiftEnd',
-        text: 'Shift End'
+        text: 'Shift End',
+        sort: true
       }, 
       {
-        dataField: '',//<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Open modal for @mdo</button>
+        dataField: '',
         text: 'Add Appointment',
-        formatter: (rowContent, row, rowIndex) => {
+        formatter: ( rowContent, row, rowIndex ) => {
             return (  
             <div>   
-              <ModalAndButton doctorScheduleByRow={doctorSchedule[rowIndex]}  />
+              <ModalAndButton 
+                patientInfo = {patientInfo} 
+                patientID = {patientID}
+                doctorScheduleByRow={doctorSchedule[rowIndex]}  />
             </div> 
             )}
       }
     ];
 
-      
+    const defaultSorted = [{
+      dataField: 'index',
+      order: 'asc'
+    }];
+
+    function customMatchFunc({
+      searchText,
+      value
+    }) {
+      if (typeof value !== 'undefined') {
+        return value.startsWith(searchText);
+      }
+      return false;
+    }  
   
   return (
-    <div className="container mt-4">  
-    <BootstrapTable bootstrap4 
-        classes = "table table-striped table-hover"
-        keyField='index' 
-        data={  doctorSchedule  } 
-        columns={ columns } 
-        pagination={ paginationFactory() } />
-    </div>
+    <div className="container mt-4">
+    <ToolkitProvider
+      keyField="index"
+      data={ doctorSchedule }
+      columns={ columns }
+      search={ { customMatchFunc } }
+    >
+      {
+        props => (
+          <div>
+            <SearchBar 
+            { ...props.searchProps }
+            placeholder="Search in table..."  />
+            <BootstrapTable bootstrap4 
+              { ...props.baseProps }
+              classes = "table table-striped table-hover react-bs-table-tool-bar"
+              keyField="index"
+              data={  doctorSchedule  } 
+              columns={ columns } 
+              pagination={ paginationFactory() }
+              defaultSorted={ defaultSorted }  />
+          </div>
+        )
+      }
+    </ToolkitProvider>  
+  </div>
   );
 }
 
-export default DoctorScheduleTable ;
+export default DoctorSheduleTable ;

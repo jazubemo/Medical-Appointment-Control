@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import axios from 'axios'
+import { NotificationContainer, NotificationManager} from 'react-notifications';
 import Modal from 'react-bootstrap/Modal'
 import DoctorAvailability from './../components/DoctorAvailability'
+import AppointmentInformation from './../components/AppointmentInformation'
+import createMedicalAppointmentService from '../services/createMedicalAppointmentService'
+import Swal from 'sweetalert2'
+import 'react-notifications/lib/notifications.css';
 import './css/modalAndButton.css'
 
 export default class ModalAndButton extends Component {
 
     state = {
       modalShow: false,
-      doctorScheduleByRow : this.props.doctorScheduleByRow,
       doctorAvailable : false,
       showLabel : false,
       appointmentDate : '',
@@ -25,6 +29,23 @@ export default class ModalAndButton extends Component {
     this.setState({ modalShow: false })
   }
 
+  handleSubmitCreateAppoinment = async () => {
+    try{
+      console.log('entro')
+      const { appointmentDate } = this.state
+      const { doctorScheduleByRow, patientID } = this.props
+      const medicalAppointmentCreated = await createMedicalAppointmentService( doctorScheduleByRow, patientID, appointmentDate)
+      if(medicalAppointmentCreated){
+        this.showMessage()
+      }else{
+        NotificationManager.error("There was a problem")
+      }
+      this.handleClose()
+    }catch(error){
+      console.log(error)
+    }
+  }
+
   onChangeDate = (evt) =>{
     console.log('evt.target.value',evt.target.value)
     console.log('doctorScheduleByRow ',this.state.doctorScheduleByRow )
@@ -35,9 +56,19 @@ export default class ModalAndButton extends Component {
     
   }
 
+  showMessage = () =>{
+    return Swal.fire({
+      icon: 'success',
+      title: 'Your Medical Appointment was created',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
+
   checkDoctorAvailability = async () =>{
     try{
-      const { appointmentDate, doctorScheduleByRow } = this.state
+      const { appointmentDate } = this.state
+      const { doctorScheduleByRow  } = this.props
       console.log('appointmentDate',appointmentDate)
       console.log('doctorScheduleByRow',doctorScheduleByRow.doctorId)
       console.log('doctorScheduleByRow.shiftStart',doctorScheduleByRow.shiftStart)
@@ -66,22 +97,32 @@ export default class ModalAndButton extends Component {
   render() {
 
   const show = (this.state.modalShow) ? true : false ;
-  const { doctorAvailable, showLabel, showCreateAppointment } = this.state
+  const { doctorAvailable, 
+    showLabel, 
+    showCreateAppointment } = this.state
+
+    const { doctorScheduleByRow,
+      patientID,
+      patientInfo} = this.props
+
   return (
 
     <>
     <button type="button" className="btn btn-success" variant="primary" onClick={this.handleShow}>
      +
     </button>
-
-    <Modal show={show} onHide={this.handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Medical Appoinment</Modal.Title>
+    <NotificationContainer/>
+    <Modal   show={show} onHide={this.handleClose}>
+      <Modal.Header className={"modal-header"} closeButton>
+        <Modal.Title>Medical Appointment</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <form>
+      <Modal.Body className={"modal-content"}>
           <div className="form-group">
-            <label htmlFor="recipient-date" className="col-form-label">Enter Date</label>
+            <AppointmentInformation 
+              patientInfo={patientInfo}
+              patientID = {patientID}
+              doctorInfo = {doctorScheduleByRow} />
+            <label htmlFor="recipient-date" className="col-form-label">Enter Appointment's date:</label>
             <input 
               className="form-control"
               type="date"
@@ -90,12 +131,11 @@ export default class ModalAndButton extends Component {
               id="recipient-date"></input>
           </div>
           <DoctorAvailability showLabel={showLabel} doctorAvailable={doctorAvailable } />
-        </form>
       </Modal.Body>
       <Modal.Footer>
-        { showCreateAppointment ? <button variant="primary" className="btn btn-primary" onClick={this.handleClose}>
+        { showCreateAppointment ? <button variant="primary" className="btn btn-primary" onClick={this.handleSubmitCreateAppoinment}>
           Create Appoinment
-        </button> : <button variant="primary" className="btn btn-primary" onClick={this.handleClose} disabled>
+        </button> : <button variant="primary" className="btn btn-primary" disabled>
           Create Appoinment
         </button>}
         <button variant="secondary" className="btn btn-danger" onClick={this.handleClose}>
@@ -104,6 +144,7 @@ export default class ModalAndButton extends Component {
 
       </Modal.Footer>
     </Modal>
+    
   </>
 
   );

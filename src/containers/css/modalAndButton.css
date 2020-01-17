@@ -4,3 +4,15 @@ button[disabled]{
   box-shadow: none !important;
   cursor: not-allowed !important;
 }
+
+.modal-header{
+  border-bottom: none !important
+}
+
+.modal-footer{
+  border-radius: 0 !important
+}
+
+.modal-footer{
+  border-top: none !important
+}
