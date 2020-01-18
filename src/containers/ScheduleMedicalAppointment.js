@@ -2,19 +2,17 @@ import React, { Component } from 'react'
 import { NotificationContainer, NotificationManager} from 'react-notifications';
 import SearchButtonPerPatient  from "../components/searchButtonPerPatient"
 import InformationOfThePatient from "../components/InformationOfThePatient"
-import DoctorScheduleTable from "../components/DoctorScheduleTable"
+import DoctorsScheduleTable from "../components/DoctorsScheduleTable"
+import BackgroundImage from "./../components/BackgroundImage"
 import getPatientByIdService from "../services/getPatientByIdService"
-import getDoctorSchedulePerHourService from "../services/getDoctorSchedulePerHourService"
+import getDoctorsSchedulePerHourService from "../services/getDoctorsSchedulePerHourService"
 import 'react-notifications/lib/notifications.css';
 
-class ScheduleMedicalAppoinment extends Component {
+class ScheduleMedicalAppointment extends Component {
     state = {
         patientID: '',
         infoPatient: '',
         showInformation : false,
-        searchFilterEntry: '',
-        specialityFilter: true,
-        lastnameFilter: false,
         doctorSchedulePerHour : []
     }
     
@@ -24,7 +22,7 @@ class ScheduleMedicalAppoinment extends Component {
             if(typeof infoPatient === "undefined"){
                 NotificationManager.info("This patient ID was not found.")
             }else{
-                const doctorSchedulePerHour = await getDoctorSchedulePerHourService()
+                const doctorSchedulePerHour = await getDoctorsSchedulePerHourService()
                 if(doctorSchedulePerHour){
                     const data = this.setAttributesForDataTable(doctorSchedulePerHour)  
                     this.setState({
@@ -41,8 +39,7 @@ class ScheduleMedicalAppoinment extends Component {
 
     setAttributesForDataTable = ( data ) => {
         data.forEach(function (element, index) {
-            console.log('element', element)
-            element.speciality = element.doctor.speciality;
+            element.specialty = element.doctor.specialty;
             element.lastname = element.doctor.lastname;
             element.index = index;
             delete element.doctor
@@ -92,7 +89,7 @@ class ScheduleMedicalAppoinment extends Component {
             infoPatient,
             doctorSchedulePerHour} = this.state
         return (
-            <div>
+            <div className="container-fluid col-xl-8"  >
                 <div className = "container mb-2 mt-4 text-center">
                   <h2>Schedule appointments</h2>
                 </div>
@@ -113,19 +110,19 @@ class ScheduleMedicalAppoinment extends Component {
                 { showInformation ? 
                   <>
                   <div className = "container mb-4 mt-4 text-center">
-                    <h4> Doctor's Schedule</h4>
+                    <h4> Doctors Schedule</h4>
                   </div>
                     <div className = "container mb-4">
                      <p className="lead mb-0"> Instruction: </p>
                      <small className="text-muted">Below is the schedule of available doctors, you can add in the column "add appointment".</small>
                     </div>
-                  <DoctorScheduleTable 
+                  <DoctorsScheduleTable 
                     doctorSchedule = {doctorSchedulePerHour}
                     patientID = {patientID} 
                     patientInfo={infoPatient}  />
-                  </> : null}   
+                  </> : <BackgroundImage />}   
             </div>
         )
     }
 }
-export default ScheduleMedicalAppoinment;
+export default ScheduleMedicalAppointment;

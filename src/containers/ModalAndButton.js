@@ -1,16 +1,15 @@
 import React, { Component } from "react";
-import axios from 'axios'
 import { NotificationContainer, NotificationManager} from 'react-notifications';
+import Swal from 'sweetalert2'
 import Modal from 'react-bootstrap/Modal'
 import DoctorAvailability from './../components/DoctorAvailability'
 import AppointmentInformation from './../components/AppointmentInformation'
 import createMedicalAppointmentService from '../services/createMedicalAppointmentService'
-import Swal from 'sweetalert2'
+import getAppointmentWithConditionsService from '../services/getAppointmentWithConditionsService'
 import 'react-notifications/lib/notifications.css';
 import './css/modalAndButton.css'
 
 export default class ModalAndButton extends Component {
-
     state = {
       modalShow: false,
       doctorAvailable : false,
@@ -19,8 +18,6 @@ export default class ModalAndButton extends Component {
       showCreateAppointment : false
     };
     
-  
-
   handleShow = () =>{
     this.setState({ modalShow: true })
   }
@@ -29,12 +26,12 @@ export default class ModalAndButton extends Component {
     this.setState({ modalShow: false })
   }
 
-  handleSubmitCreateAppoinment = async () => {
+  handleSubmitCreateAppointment = async () => {
     try{
-      console.log('entro')
       const { appointmentDate } = this.state
       const { doctorScheduleByRow, patientID } = this.props
-      const medicalAppointmentCreated = await createMedicalAppointmentService( doctorScheduleByRow, patientID, appointmentDate)
+      const medicalAppointmentCreated = await createMedicalAppointmentService( 
+                                        doctorScheduleByRow, patientID, appointmentDate)
       if(medicalAppointmentCreated){
         this.showMessage()
       }else{
@@ -46,10 +43,16 @@ export default class ModalAndButton extends Component {
     }
   }
 
-  onChangeDate = (evt) =>{
-    console.log('evt.target.value',evt.target.value)
-    console.log('doctorScheduleByRow ',this.state.doctorScheduleByRow )
+  getDifferenceInDaysBetweenTodayAndAppointmentDate = (appointmentDateParam) =>{
+    const today = new Date()
+    const newAppointmentDateParamWithSpaces = appointmentDateParam.replace(/-/g, ' ');
+    const appointmentDate = new Date(newAppointmentDateParamWithSpaces)
+    let Difference_In_Time = appointmentDate.getTime() - today.getTime(); 
+    let Difference_In_Days = Math.ceil(Difference_In_Time / (1000 * 3600 * 24));
+    return Difference_In_Days 
+ }
 
+  onChangeDate = (evt) =>{
     this.setState({
       appointmentDate: evt.target.value,  
     },() =>{ this.checkDoctorAvailability()})
@@ -69,41 +72,50 @@ export default class ModalAndButton extends Component {
     try{
       const { appointmentDate } = this.state
       const { doctorScheduleByRow  } = this.props
-      console.log('appointmentDate',appointmentDate)
-      console.log('doctorScheduleByRow',doctorScheduleByRow.doctorId)
-      console.log('doctorScheduleByRow.shiftStart',doctorScheduleByRow.shiftStart)
-      const existAppointment = await axios.get(`https://my-json-server.typicode.com/jazubemo/jazubemo-scheduleMedicalAppoinments/medicalAppoinments?doctorId=${doctorScheduleByRow.doctorId}&Date=${appointmentDate}&appointmentTime=${doctorScheduleByRow.shiftStart}`)
-      
-      if(existAppointment.data.length === 0){
-        console.log('existAppointment',existAppointment.data)
-        this.setState({
-          doctorAvailable : true,
-          showCreateAppointment : true
-        })
-      }else{
-        this.setState({
-          doctorAvailable : false,
-          showCreateAppointment : false
-        })
-      }
-      this.setState({
-        showLabel : true,
-      })
+      const Difference_In_Days = this.getDifferenceInDaysBetweenTodayAndAppointmentDate(
+                                      appointmentDate) 
+      if(!isNaN( Difference_In_Days )){
+        if( Difference_In_Days < 0){
+          NotificationManager.error("Please enter a valid Date")
+            this.setState({
+              appointmentDate: '',
+              showLabel : false  
+            })  
+        }else {
+          const existAppointment = await getAppointmentWithConditionsService(
+                                    doctorScheduleByRow.doctorId, 
+                                    appointmentDate, 
+                                    doctorScheduleByRow.shiftStart)
+          if(existAppointment.length === 0){
+            this.setState({
+              doctorAvailable : true,
+              showCreateAppointment : true
+            })
+          }else{
+            this.setState({
+              doctorAvailable : false,
+              showCreateAppointment : false
+            })
+          }
+          this.setState({
+            showLabel : true,
+          })
+        }
+      }  
     }catch(err){
       console.log(err)
     }
   }
 
   render() {
-
   const show = (this.state.modalShow) ? true : false ;
   const { doctorAvailable, 
     showLabel, 
     showCreateAppointment } = this.state
 
-    const { doctorScheduleByRow,
-      patientID,
-      patientInfo} = this.props
+  const { doctorScheduleByRow,
+    patientID,
+    patientInfo} = this.props
 
   return (
 
@@ -112,7 +124,9 @@ export default class ModalAndButton extends Component {
      +
     </button>
     <NotificationContainer/>
-    <Modal   show={show} onHide={this.handleClose}>
+    <Modal   
+      show={show} 
+      onHide={this.handleClose}>
       <Modal.Header className={"modal-header"} closeButton>
         <Modal.Title>Medical Appointment</Modal.Title>
       </Modal.Header>
@@ -122,7 +136,9 @@ export default class ModalAndButton extends Component {
               patientInfo={patientInfo}
               patientID = {patientID}
               doctorInfo = {doctorScheduleByRow} />
-            <label htmlFor="recipient-date" className="col-form-label">Enter Appointment's date:</label>
+            <label htmlFor="recipient-date" 
+              className="col-form-label">
+              Enter Appointment's date:</label>
             <input 
               className="form-control"
               type="date"
@@ -133,20 +149,22 @@ export default class ModalAndButton extends Component {
           <DoctorAvailability showLabel={showLabel} doctorAvailable={doctorAvailable } />
       </Modal.Body>
       <Modal.Footer>
-        { showCreateAppointment ? <button variant="primary" className="btn btn-primary" onClick={this.handleSubmitCreateAppoinment}>
-          Create Appoinment
+        { showCreateAppointment ? 
+          <button 
+            variant="primary" 
+            className="btn btn-primary" 
+            onClick={this.handleSubmitCreateAppoinment}>
+          Create Appointment
         </button> : <button variant="primary" className="btn btn-primary" disabled>
-          Create Appoinment
-        </button>}
+                    Create Appointment
+                    </button>}
         <button variant="secondary" className="btn btn-danger" onClick={this.handleClose}>
           Close
         </button>
 
       </Modal.Footer>
-    </Modal>
-    
+    </Modal>  
   </>
-
   );
   }
 }

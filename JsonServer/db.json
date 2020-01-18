@@ -18,24 +18,24 @@
       "id": "1601199400481",
       "name": "Luis",
       "lastname": "Lopez",
-      "speciality": "cardiology",
+      "specialty": "cardiology",
       "available": true
     },
     {
       "id": "1601199400482",
       "name": "Mateo",
       "lastname": "Salazar",
-      "speciality": "allergy",
+      "specialty": "allergy",
       "available": true
     }
   ],
-  "medicalAppoinments": [
+  "medicalAppointments": [
     {
       "id": "1",
       "doctorId": "1601199400481",
       "patientId": "1601199400472",
       "Date": "2020-01-20",
-      "appointmentTime": "13:00",
+      "Time": "13:00",
       "duration": 1
     },
     {
@@ -43,7 +43,7 @@
       "doctorId": "1601199400481",
       "patientId": "1601199400471",
       "Date": "2020-01-20",
-      "appointmentTime": "14:00",
+      "Time": "14:00",
       "duration": 1
     },
     {
@@ -51,7 +51,7 @@
       "doctorId": "1601199400481",
       "patientId": "1601199400472",
       "Date": "2020-01-21",
-      "appointmentTime": "13:00",
+      "Time": "13:00",
       "duration": 1
     },
     {
@@ -59,7 +59,7 @@
       "doctorId": "1601199400482",
       "patientId": "1601199400471",
       "Date": "2020-01-21",
-      "appointmentTime": "14:00",
+      "Time": "14:00",
       "duration": 1
     },
     {
@@ -67,18 +67,15 @@
       "doctorId": "1601199400482",
       "patientId": "1601199400471",
       "Date": "2020-01-21",
-      "appointmentTime": "13:00",
-      "duration": 1,
-      "headers": {
-        "Content-Type": "application/json"
-      }
+      "Time": "13:00",
+      "duration": 1
     },
     {
       "id": "6",
       "doctorId": "1601199400481",
       "patientId": "1601199400471",
       "Date": "2020-01-29",
-      "appointmentTime": "14:00",
+      "Time": "14:00",
       "duration": 1
     },
     {
@@ -86,7 +83,23 @@
       "doctorId": "1601199400481",
       "patientId": "1601199400472",
       "Date": "2020-01-27",
+      "Time": "15:00",
+      "duration": 1
+    },
+    {
+      "id": "_iho7mek8t",
+      "doctorId": "1601199400482",
+      "patientId": "1601199400472",
+      "Date": "2020-01-31",
       "appointmentTime": "15:00",
+      "duration": 1
+    },
+    {
+      "id": "_vl5ui6zmu",
+      "doctorId": "1601199400482",
+      "patientId": "1601199400472",
+      "Date": "2020-01-25",
+      "Time": "14:00",
       "duration": 1
     }
   ],

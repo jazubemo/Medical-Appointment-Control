@@ -1,12 +1,19 @@
 import React, { Component } from 'react'
 import getDoctorsService from './../services/getDoctorsService'
 import DoctorInformation from './../components/DoctorInformation'
-
+import DoctorsDropdown from './../components/DoctorsDropdown'
+import DoctorAppointmentsTable from './../components/DoctorAppointmentsTable'
+import BackgroundImage from "./../components/BackgroundImage"
+import getDoctorByIDService from './../services/getDoctorByIDService'
+import getAppointmentsByDoctorIDService from './../services/getAppointmentsByDoctorIDService'
 
 class MedicalSchedulePerDoctor extends Component {
     state = {
         doctorId: '',
-        doctors: []
+        doctorInfo:'',
+        doctors: [],
+        doctorAppointments: [],
+        showDoctorInformation : false
     }
 
     componentDidMount(){
@@ -21,24 +28,58 @@ class MedicalSchedulePerDoctor extends Component {
                     doctors: doctors
                 })
             }
-
         }catch( err ){
             console.log(err)
         }
     }
 
+    fetchDoctorData = async () =>{
+        try{
+            const { doctorId } = this.state
+            if( doctorId !== ''){
+                const doctorInfo = await getDoctorByIDService(doctorId)
+                const doctorAppointments = await getAppointmentsByDoctorIDService(doctorId)
+                const doctorAppointmentsUpdate = this.setAttributesForDataTable(doctorAppointments )
+                if( doctorInfo && doctorAppointmentsUpdate ){
+                    this.setState({
+                        doctorInfo: doctorInfo,
+                        showDoctorInformation: true,
+                        doctorAppointments: doctorAppointmentsUpdate
+                    })
+                }
+            }
+        }catch( error ){
+            console.log(error)
+        }
+    }
+
+    setAttributesForDataTable = ( data ) => {
+        data.forEach( (element, index) => {
+            element.index = index; 
+            element.duration = element.duration + ' hour' 
+        });
+        return data  
+    }
+
     handleOnChangeSelect = (evt) =>{
-        console.log('evt.target.value', evt.target.value)
+        if( evt.target.value === ''){
+            this.setState({
+                showDoctorInformation:false
+            })
+        }
         this.setState({
             doctorId: evt.target.value
-        })
+        }, () =>{ this.fetchDoctorData()})
     }
 
     render() {
         const { doctorId,
-                doctors} = this.state
+                doctorInfo,
+                doctors,
+                showDoctorInformation,
+                doctorAppointments} = this.state
         return (
-            <div className="container">
+            <div className="container-fluid col-xl-8">
                 <div className = "container mb-2 mt-4 text-center">
                   <h2>Medical's Schedule Per doctor</h2>
                 </div>
@@ -46,22 +87,24 @@ class MedicalSchedulePerDoctor extends Component {
                     <p className="lead mb-0"> Instruction: </p>
                     <small className="text-muted">To view a doctor's schedule, first select a doctor.</small>
                 </div>
-                <form>
-                <div className="form-group mt-4">
-                  <select 
-                    className="custom-select" 
-                    onChange={this.handleOnChangeSelect}
-                    value={doctorId} >
-                    <option key="placeholder" value="">Please select a doctor</option>
-                    { doctors.map( (doctor, index) =>{
-                    const fullName = doctor.name + '  ' + doctor.lastname
-                    return <option key={index} value={doctor.id} > { fullName }</option>
-                    })}
-                  </select>
-                </div>
-               </form>
+                <DoctorsDropdown 
+                    doctorId={doctorId}
+                    doctors={doctors} 
+                    handleOnChangeSelect={this.handleOnChangeSelect } />
                <hr />
-               <DoctorInformation  />
+               { showDoctorInformation ? 
+                <>
+                <DoctorInformation 
+                    doctorId={doctorInfo.id} 
+                    specialty={doctorInfo.specialty} 
+                    doctorLastname={doctorInfo.lastname}/>
+                <hr />
+                <div className = "container mb-4 mt-4 text-center">
+                    <h4> Pending Medical Appointments </h4>
+                </div>
+                <DoctorAppointmentsTable
+                 doctorAppointments={doctorAppointments} />
+                </>: <BackgroundImage /> }
             </div>
         )
     }

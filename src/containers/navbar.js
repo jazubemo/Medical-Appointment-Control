@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-export default class Menu extends Component {
+export default class Navbar extends Component {
 
   constructor(props) {
     super(props);
@@ -21,17 +21,16 @@ export default class Menu extends Component {
   return (
 
     <nav className="navbar navbar-expand-md bg-dark navbar-dark">
-      <a className="navbar-brand" href="/appointments">Appointments</a>
+      <a className="navbar-brand" href="/">Appointments</a>
       <button className="navbar-toggler" type="button" onClick={ this.toggleMenu }>
         <span className="navbar-toggler-icon"></span>
       </button>
-      <div className={"collapse navbar-collapse " + show}>
+      <div className={"collapse navbar-collapse" + show}>
         <div className="navbar-nav">
-        <a className="nav-item nav-link " href="/doctors" >Doctors</a>
+          <a className="nav-item nav-link " href="/doctors" >Doctors</a>
         </div>
       </div>
     </nav>
-
   );
   }
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import './css/doctorAvailable.css'//<p className="notAvailable">NOT AVAILABLE</p>
+import './css/doctorAvailable.css'
 
 const DoctorAvailability = (props) => {
   const { doctorAvailable, showLabel  } = props

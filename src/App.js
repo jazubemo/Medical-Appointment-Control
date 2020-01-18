@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import './App.css';
-import Navbar from "./containers/navbar"
-import ScheduleMedicalAppoinment from "./containers/ScheduleMedicalAppoinment"
+import Navbar from "./containers/Navbar"
+import ScheduleMedicalAppointment from "./containers/ScheduleMedicalAppointment"
 import MedicalSchedulePerDoctor from "./containers/MedicalSchedulePerDoctor"
+import './App.css';
 
 function App() {
   return (
@@ -13,12 +13,11 @@ function App() {
             <Navbar></Navbar>
           </div>
           <Switch>
-              <Route exact path='/appointments' component={ScheduleMedicalAppoinment} />
-              <Route path='/doctors' component={MedicalSchedulePerDoctor} />
+            <Route exact path='/' component={ScheduleMedicalAppointment} />
+            <Route path='/doctors' component={MedicalSchedulePerDoctor} />
           </Switch>
         </div>
       </Router>
-
   );
 }
 

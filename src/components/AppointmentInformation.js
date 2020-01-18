@@ -2,17 +2,16 @@ import React from "react";
 
 const AppointmentInformation = (props) => {
   const { patientInfo, patientID, doctorInfo } = props
-  console.log('doctorInfo', doctorInfo)
   return (
     <div >
-        <div className="container mt-2" >
-         <p> Appointment's Information:</p>
+      <div className="container mt-2" >
+        <p> Appointment's Information:</p>
         <div className="container border border-dark rounded ">
         <form>
           <div className="form-group mb-0  row">
-            <label htmlFor="staticpatientID" className="col-sm-5 col-form-label">Patient's ID</label>
+            <label htmlFor="staticPatientID" className="col-sm-5 col-form-label">Patient's ID</label>
             <div className="col-sm-6">
-              <input type="text" readOnly className="form-control-plaintext" id="staticpatientID" value={patientID} />
+              <input type="text" readOnly className="form-control-plaintext" id="staticPatientID" value={patientID} />
             </div>
           </div>
           <div className="form-group mb-0  row">
@@ -40,9 +39,9 @@ const AppointmentInformation = (props) => {
             </div>
           </div>
         </form>
-        </div>
-        </div>
+      </div>
     </div>
+  </div>
   );
 }
 
