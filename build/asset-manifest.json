@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4fbf72f5.chunk.css",
+    "main.js": "/static/js/main.7e7ced28.chunk.js",
+    "main.js.map": "/static/js/main.7e7ced28.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.6ee5af09.js",
+    "runtime-main.js.map": "/static/js/runtime-main.6ee5af09.js.map",
+    "static/css/2.a342d0b5.chunk.css": "/static/css/2.a342d0b5.chunk.css",
+    "static/js/2.2d5fcf1c.chunk.js": "/static/js/2.2d5fcf1c.chunk.js",
+    "static/js/2.2d5fcf1c.chunk.js.map": "/static/js/2.2d5fcf1c.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.11cbd61b06551f5191e8917ebc778624.js": "/precache-manifest.11cbd61b06551f5191e8917ebc778624.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.a342d0b5.chunk.css.map": "/static/css/2.a342d0b5.chunk.css.map",
+    "static/css/main.4fbf72f5.chunk.css.map": "/static/css/main.4fbf72f5.chunk.css.map",
+    "static/js/2.2d5fcf1c.chunk.js.LICENSE": "/static/js/2.2d5fcf1c.chunk.js.LICENSE",
+    "static/media/appointment.svg": "/static/media/appointment.cc359dd2.svg",
+    "static/media/medicalAppointmentImage.jpg": "/static/media/medicalAppointmentImage.d497eb8f.jpg",
+    "static/media/notifications.css": "/static/media/notification.c0d3c94c.eot"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6ee5af09.js",
+    "static/css/2.a342d0b5.chunk.css",
+    "static/js/2.2d5fcf1c.chunk.js",
+    "static/css/main.4fbf72f5.chunk.css",
+    "static/js/main.7e7ced28.chunk.js"
+  ]
+}
