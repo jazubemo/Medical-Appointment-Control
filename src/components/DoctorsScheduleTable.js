@@ -3,6 +3,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ModalAndButton from '../containers/ModalAndButton'
+import './css/paginator.css'
 
 const DoctorsScheduleTable = (props) => {
   const { doctorSchedule, patientInfo, patientID } = props
@@ -16,6 +17,11 @@ const DoctorsScheduleTable = (props) => {
       {
         dataField: 'specialty',
         text: 'Specialty',
+        sort: true
+      },
+      {
+        dataField: 'name',
+        text: 'name',
         sort: true
       }, 
       {
@@ -36,6 +42,7 @@ const DoctorsScheduleTable = (props) => {
       {
         dataField: '',
         text: 'Add Appointment',
+        sort: false,
         formatter: ( rowContent, row, rowIndex ) => {
             return (  
             <div>   

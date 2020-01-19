@@ -1,16 +1,37 @@
 {
   "patients": [
     {
-      "patientID": "1601199400471",
+      "patientID": "1601199400461",
       "name": "Jasmin",
       "lastname": "Benitez",
       "age": 25
     },
     {
-      "patientID": "1601199400472",
+      "patientID": "1601199400462",
       "name": "Ana",
       "lastname": "Ramos",
       "age": 26
+    },
+    {
+      "id": 1,
+      "patientID": "1601199400463",
+      "name": "Jasmin2",
+      "lastname": "Benitez2",
+      "age": 27
+    },
+    {
+      "id": "_4bd4ls90u",
+      "patientID": "1601199400464",
+      "name": "Luis",
+      "lastname": "Ferrufino",
+      "age": "40"
+    },
+    {
+      "id": "_edffgernd",
+      "patientID": "1601199400465",
+      "name": "Pedro",
+      "lastname": "Benitez",
+      "age": "0"
     }
   ],
   "doctors": [
@@ -18,14 +39,35 @@
       "id": "1601199400481",
       "name": "Luis",
       "lastname": "Lopez",
-      "specialty": "cardiology",
+      "specialty": "Cardiology",
       "available": true
     },
     {
       "id": "1601199400482",
       "name": "Mateo",
       "lastname": "Salazar",
-      "specialty": "allergy",
+      "specialty": "Allergy",
+      "available": true
+    },
+    {
+      "id": "1601199400483",
+      "name": "Esteban",
+      "lastname": "Orellana",
+      "specialty": "General Medicine",
+      "available": true
+    },
+    {
+      "id": "1601199400484",
+      "name": "Frances",
+      "lastname": "Sevilla",
+      "specialty": "Neurology",
+      "available": true
+    },
+    {
+      "id": "1601199400485",
+      "name": "Daniel",
+      "lastname": "Euceda",
+      "specialty": "Dermatology",
       "available": true
     }
   ],
@@ -33,7 +75,7 @@
     {
       "id": "1",
       "doctorId": "1601199400481",
-      "patientId": "1601199400472",
+      "patientId": "1601199400462",
       "Date": "2020-01-20",
       "Time": "13:00",
       "duration": 1
@@ -41,7 +83,7 @@
     {
       "id": "2",
       "doctorId": "1601199400481",
-      "patientId": "1601199400471",
+      "patientId": "1601199400461",
       "Date": "2020-01-20",
       "Time": "14:00",
       "duration": 1
@@ -49,7 +91,7 @@
     {
       "id": "3",
       "doctorId": "1601199400481",
-      "patientId": "1601199400472",
+      "patientId": "1601199400462",
       "Date": "2020-01-21",
       "Time": "13:00",
       "duration": 1
@@ -57,7 +99,7 @@
     {
       "id": "4",
       "doctorId": "1601199400482",
-      "patientId": "1601199400471",
+      "patientId": "1601199400461",
       "Date": "2020-01-21",
       "Time": "14:00",
       "duration": 1
@@ -65,7 +107,7 @@
     {
       "id": "_4saimx89r",
       "doctorId": "1601199400482",
-      "patientId": "1601199400471",
+      "patientId": "1601199400461",
       "Date": "2020-01-21",
       "Time": "13:00",
       "duration": 1
@@ -73,7 +115,7 @@
     {
       "id": "6",
       "doctorId": "1601199400481",
-      "patientId": "1601199400471",
+      "patientId": "1601199400461",
       "Date": "2020-01-29",
       "Time": "14:00",
       "duration": 1
@@ -81,7 +123,7 @@
     {
       "id": "_ub51bsys2",
       "doctorId": "1601199400481",
-      "patientId": "1601199400472",
+      "patientId": "1601199400462",
       "Date": "2020-01-27",
       "Time": "15:00",
       "duration": 1
@@ -89,17 +131,25 @@
     {
       "id": "_iho7mek8t",
       "doctorId": "1601199400482",
-      "patientId": "1601199400472",
+      "patientId": "1601199400462",
       "Date": "2020-01-31",
-      "appointmentTime": "15:00",
+      "Time": "15:00",
       "duration": 1
     },
     {
       "id": "_vl5ui6zmu",
       "doctorId": "1601199400482",
-      "patientId": "1601199400472",
+      "patientId": "1601199400462",
       "Date": "2020-01-25",
       "Time": "14:00",
+      "duration": 1
+    },
+    {
+      "id": "_owh1z6uki",
+      "doctorId": "1601199400483",
+      "patientId": "1601199400461",
+      "Date": "2020-01-22",
+      "Time": "10:00",
       "duration": 1
     }
   ],
@@ -130,9 +180,54 @@
       "shiftEnd": "15:00"
     },
     {
-      "doctorId": "1601199400482",
-      "shiftStart": "15:00",
-      "shiftEnd": "16:00"
+      "doctorId": "1601199400483",
+      "shiftStart": "08:00",
+      "shiftEnd": "09:00"
+    },
+    {
+      "doctorId": "1601199400483",
+      "shiftStart": "09:00",
+      "shiftEnd": "10:00"
+    },
+    {
+      "doctorId": "1601199400483",
+      "shiftStart": "10:00",
+      "shiftEnd": "11:00"
+    },
+    {
+      "doctorId": "1601199400483",
+      "shiftStart": "11:00",
+      "shiftEnd": "12:00"
+    },
+    {
+      "doctorId": "1601199400484",
+      "shiftStart": "07:00",
+      "shiftEnd": "08:00"
+    },
+    {
+      "doctorId": "1601199400484",
+      "shiftStart": "09:00",
+      "shiftEnd": "10:00"
+    },
+    {
+      "doctorId": "1601199400484",
+      "shiftStart": "11:00",
+      "shiftEnd": "12:00"
+    },
+    {
+      "doctorId": "1601199400485",
+      "shiftStart": "12:00",
+      "shiftEnd": "13:00"
+    },
+    {
+      "doctorId": "1601199400485",
+      "shiftStart": "13:00",
+      "shiftEnd": "14:00"
+    },
+    {
+      "doctorId": "1601199400485",
+      "shiftStart": "14:00",
+      "shiftEnd": "15:00"
     }
   ]
 }

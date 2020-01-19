@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NotificationContainer, NotificationManager} from 'react-notifications';
+import {  NotificationManager} from 'react-notifications';
 import Swal from 'sweetalert2'
 import Modal from 'react-bootstrap/Modal'
 import DoctorAvailability from './../components/DoctorAvailability'
@@ -28,10 +28,12 @@ export default class ModalAndButton extends Component {
 
   handleSubmitCreateAppointment = async () => {
     try{
+      console.log('resp.data');
       const { appointmentDate } = this.state
       const { doctorScheduleByRow, patientID } = this.props
       const medicalAppointmentCreated = await createMedicalAppointmentService( 
                                         doctorScheduleByRow, patientID, appointmentDate)
+
       if(medicalAppointmentCreated){
         this.showMessage()
       }else{
@@ -123,7 +125,6 @@ export default class ModalAndButton extends Component {
     <button type="button" className="btn btn-success" variant="primary" onClick={this.handleShow}>
      +
     </button>
-    <NotificationContainer/>
     <Modal   
       show={show} 
       onHide={this.handleClose}>
@@ -153,7 +154,7 @@ export default class ModalAndButton extends Component {
           <button 
             variant="primary" 
             className="btn btn-primary" 
-            onClick={this.handleSubmitCreateAppoinment}>
+            onClick={this.handleSubmitCreateAppointment}>
           Create Appointment
         </button> : <button variant="primary" className="btn btn-primary" disabled>
                     Create Appointment

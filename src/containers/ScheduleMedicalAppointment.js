@@ -21,6 +21,9 @@ class ScheduleMedicalAppointment extends Component {
             const infoPatient = await getPatientByIdService(patientID)
             if(typeof infoPatient === "undefined"){
                 NotificationManager.info("This patient ID was not found.")
+                this.setState({
+                    showInformation : false
+                })
             }else{
                 const doctorSchedulePerHour = await getDoctorsSchedulePerHourService()
                 if(doctorSchedulePerHour){
@@ -41,6 +44,7 @@ class ScheduleMedicalAppointment extends Component {
         data.forEach(function (element, index) {
             element.specialty = element.doctor.specialty;
             element.lastname = element.doctor.lastname;
+            element.name = element.doctor.name;
             element.index = index;
             delete element.doctor
         });
@@ -105,8 +109,8 @@ class ScheduleMedicalAppointment extends Component {
                 <InformationOfThePatient
                     show = {showInformation}
                     info = {infoPatient}/>
-                <hr />
                 <NotificationContainer/>
+                <hr />
                 { showInformation ? 
                   <>
                   <div className = "container mb-4 mt-4 text-center">

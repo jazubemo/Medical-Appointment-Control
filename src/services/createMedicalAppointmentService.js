@@ -10,6 +10,7 @@ const createMedicalAppointmentService = ({doctorId, shiftStart}, patientId, appo
         duration : 1 
     })
     .then(resp => {
+        console.log('resp.data',resp.data);
         return Promise.resolve( resp.data)
     }).catch(error => {
         return Promise.reject("Error while trying to create a patient", error)
