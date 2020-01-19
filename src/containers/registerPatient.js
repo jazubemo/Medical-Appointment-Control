@@ -35,16 +35,28 @@ export default class RegisterPatient extends Component {
             && isEmpty(error.lastname) 
             && isEmpty(error.age)){
             const isPatientExist = await getPatientByIdService(ID)
-            if(isPatientExist === ''){
+            if( isEmpty(isPatientExist)){
                 const patientCreated = await createPatientService(ID, name, lastname, age)
                 if( patientCreated ){
                     NotificationManager.success("Patient Created!!!")
                     this.cleanInput()
                 }
-            }else{
+            }else {
                 NotificationManager.error("This patient's ID is already exist. Please enter other ID")
             }    
         }
+    }
+
+    handleOnClose = () =>{
+      this.setState({
+        error:{
+          ID: '',
+          name: '',
+          lastname: '',
+          age: ''
+        }
+      })
+      this.cleanInput()
     }
 
     cleanInput = ()=>{
@@ -141,7 +153,7 @@ export default class RegisterPatient extends Component {
                 id="ID"  
                 placeholder="Enter Patient's ID"
                 ref={this.myRef} />
-            <small  id="emailHelp" 
+            <small  id="IDError" 
                 className="form-text smallCustomize">{error.ID}</small>
             </div>
             <div className="form-group">
@@ -150,9 +162,9 @@ export default class RegisterPatient extends Component {
                     className="form-control" 
                     onChange={this.handleOnChangePatientInfo.bind(this, 'name')} 
                     value={name} 
-                    id="ID"  
+                    id="name"  
                     placeholder="Enter Patient's name" />
-                <small id="emailHelp" 
+                <small id="IDName" 
                     className="form-text smallCustomize">{error.name}</small>
             </div>
             <div className="form-group">
@@ -163,7 +175,7 @@ export default class RegisterPatient extends Component {
                     value={lastname} 
                     id="lastname"  
                     placeholder="Enter Patient's lastname" />
-                <small id="emailHelp" 
+                <small id="lastnameError" 
                     className="form-text smallCustomize">{error.lastname}</small>
             </div>
             <div className="form-group">
@@ -176,7 +188,7 @@ export default class RegisterPatient extends Component {
                     placeholder="Enter Patient's age"
                     max="100"
                     min="0" />
-            <small id="emailHelp" 
+            <small id="ageError" 
                 className="form-text smallCustomize">{error.age}</small>
             </div>
             <div className="text-center mt-2 ">
@@ -187,7 +199,7 @@ export default class RegisterPatient extends Component {
                 <button 
                     className="btn btn-danger ml-2 " 
                     type="button" 
-                    onClick={this.cleanInput} > Cancel</button>
+                    onClick={this.handleOnClose} > Cancel</button>
             </div>
         </form>
         </div>

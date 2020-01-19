@@ -64,7 +64,7 @@ const DoctorAppointmentsTable = (props) => {
           <div>
             <SearchBar 
             { ...props.searchProps }
-            placeholder="Search in table..."  />
+            placeholder="Enter search in table"  />
             <BootstrapTable bootstrap4 
               { ...props.baseProps }
               classes = "table table-striped table-hover react-bs-table-tool-bar"
