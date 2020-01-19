@@ -32,6 +32,13 @@
       "name": "Pedro",
       "lastname": "Benitez",
       "age": "0"
+    },
+    {
+      "id": "_19xw9cxhu",
+      "patientID": "1601199400474",
+      "name": "life",
+      "lastname": "Gomez",
+      "age": 40
     }
   ],
   "doctors": [
@@ -150,6 +157,29 @@
       "patientId": "1601199400461",
       "Date": "2020-01-22",
       "Time": "10:00",
+      "duration": 1
+    },{
+      "id": "_c8rtqdi2v",
+      "doctorId": "1601199400481",
+      "patientId": "0801199513607",
+      "Date": "2020-01-20",
+      "Time": "15:00",
+      "duration": 1
+    },
+    {
+      "id": "_p9fmffri0",
+      "doctorId": "1601199400482",
+      "patientId": "0801199513607",
+      "Date": "2020-01-20",
+      "Time": "13:00",
+      "duration": 1
+    },
+    {
+      "id": "_q4r3lj13b",
+      "doctorId": "1601199400482",
+      "patientId": "0801199513607",
+      "Date": "2020-01-20",
+      "Time": "14:00",
       "duration": 1
     }
   ],

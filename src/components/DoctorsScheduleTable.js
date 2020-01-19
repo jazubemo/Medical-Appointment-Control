@@ -49,7 +49,7 @@ const DoctorsScheduleTable = (props) => {
               <ModalAndButton 
                 patientInfo = {patientInfo} 
                 patientID = {patientID}
-                doctorScheduleByRow={doctorSchedule[rowIndex]}  />
+                doctorScheduleByRow={row}  />
             </div> 
             )}
       }

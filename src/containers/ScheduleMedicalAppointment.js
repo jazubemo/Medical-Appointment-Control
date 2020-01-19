@@ -42,11 +42,13 @@ class ScheduleMedicalAppointment extends Component {
 
     setAttributesForDataTable = ( data ) => {
         data.forEach(function (element, index) {
+            console.log('DOCTOR SOURCE', element);
             element.specialty = element.doctor.specialty;
             element.lastname = element.doctor.lastname;
             element.name = element.doctor.name;
             element.index = index;
             delete element.doctor
+            console.log('DOCTOR SOURCE NNNNNNNNNewwww', element);
         });
         return data  
     }
