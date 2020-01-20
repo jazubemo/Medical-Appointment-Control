@@ -10,7 +10,7 @@ Steps to see this project(IMPORTANT):
     3.1 When finished manually install:
 ### `npm install -g json-server`
 
-    3.2 When finished installing manually npm i -g serve --save
+    3.2 When finished installing manually 
 ### `npm i -g serve --save`
 
 4. To finish and run app you need execute in the terminal:
