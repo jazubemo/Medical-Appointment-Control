@@ -2,6 +2,8 @@ import React from 'react'
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
+import SearchIcon from './../img/searchIcon.svg'
+import './css/doctorAppointmentsTable.css'
 import './css/paginator.css'
 
 const DoctorAppointmentsTable = (props) => {
@@ -62,6 +64,7 @@ const DoctorAppointmentsTable = (props) => {
       {
         props => (
           <div>
+            <img className="imgCustomize" src={SearchIcon } alt="Medicine Icon" />
             <SearchBar 
             { ...props.searchProps }
             placeholder="Enter search in table"  />

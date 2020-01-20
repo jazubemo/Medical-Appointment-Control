@@ -9,10 +9,8 @@ const createMedicalAppointmentService = ( ID, name, lastname, age) =>
         age: Number(age)
     })
     .then(resp => {
-        console.log('resp', resp);
         return Promise.resolve( resp.data)
     }).catch(error => {
-        console.log('error', error);
         return Promise.reject("Error while trying to create a patient", error)
     });
 
