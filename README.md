@@ -1,8 +1,33 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+
+Steps to see this project(IMPORTANT):
+1. Clone it
+2. Open a terminal of this project and run :
+### `npm install --save`
+3. You will need two extra commands:
+    3.1 When finished manually install:
+### `npm install -g json-server`
+
+    3.2 When finished installing manually npm i -g serve --save
+### `npm i -g serve --save`
+
+4. To finish and run app you need execute in the terminal:
+### `npm run app`
+
+5. You can visit the path [http://localhost:5000](http://localhost:5000)
+
+6. That is all, you can see the app
+
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
+
+These steps is only development mode
 
 ### `npm start`
 
